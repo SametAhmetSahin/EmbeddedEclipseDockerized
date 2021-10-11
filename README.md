@@ -67,16 +67,21 @@ başlatmadaki `xterm` komutunu `/apps/eclipse/eclipse` ile değiştirdiğimde de
 ### Bazı ayarlamalar
 
 #### Proje klasörü
-Artık arayüzümüz vardı ve Eclipse çalışıyordu, ama işimiz henüz bitmemişti. Biz container'ı doğrudan imajdan çalıştırdığımız için container çalışırken yapılanlar kaydedilmez, bir sonrakinde temiz bir konfigürasyonla başlar. Ancak ana makineden çeşitli yolları containerda çeşitli yollara atayarak bazı şeylerin kaydedilmesini ve farklı oturumlar arasında paylaşılmasını sağlayabiliriz. Bunun için çalıştırma komutuna `-v "/home/$USER/EmbeddedEclipse/projects/:/apps/projects/:rw"` argümanını ekledim, bu sayede kullanıcının ev klasöründe EmbeddedEclipse ve onun da altında projects diye bir klasör oluşturtup bunu containerda /apps/projects yoluna okuma ve yazma izinleri olacak şekilde atanmasını sağladım. Yapılması gereken son şey ise Eclipse'i konfigüre ederken proje klasörü olarak burayı seçmekti.
+Artık arayüzümüz vardı ve Eclipse çalışıyordu, ama işimiz henüz bitmemişti. Biz container'ı doğrudan imajdan çalıştırdığımız için Docker'ın doğası gereği container çalışırken yapılanlar kaydedilmez, bir sonrakinde temiz bir konfigürasyonla başlar. Ancak ana makineden çeşitli yolları containerda çeşitli yollara atayarak bazı şeylerin kaydedilmesini ve farklı oturumlar arasında paylaşılmasını sağlayabiliriz. Bunun için çalıştırma komutuna `-v "/home/$USER/EmbeddedEclipse/projects/:/apps/projects/:rw"` argümanını ekledim, bu sayede kullanıcının ev klasöründe EmbeddedEclipse ve onun da altında projects diye bir klasör oluşturtup bunu containerda /apps/projects yoluna okuma ve yazma izinleri olacak şekilde atanmasını sağladım. Yapılması gereken son şey ise Eclipse'i konfigüre ederken proje klasörü olarak burayı seçmekti.
 
 #### USB Yönlendirme
-Programlayacağımız Tiva C'ye USB ile doğrudan bağlı olmamız gerekiyordu, bundan dolayı da çalıştırma komutuna `--device /dev/bus/usb/002` ekleyerek 2. hubdaki USByi containera aktardım, ana makineye bağlı olarak değişmesi gereken tek şey bu.
+Programlayacağımız Tiva C'ye USB ile doğrudan bağlı olmamız gerekiyordu, bundan dolayı da çalıştırma komutuna `--device /dev/bus/usb/002` ekleyerek 2. hubdaki USByi containera aktardım, ana makineye bağlı olarak değişmesi gereken tek şey bu. Tüm USBleri paylaşabilirdim ancak güvenlik sebebiyle bunu yapmadım.
 
 ### Son ayarlar
 Hocamın bana attığı rehberi takip ederek Dockerfile'daki `apt install` komutuna `openocd` ve `gcc-arm-none-eabi` paketlerini de ekledim. Elimde Tiva C bulunmadığı için test yapamadım ama teorik olarak çalışması gerekiyor, hocamla beraber Eclipse'deki son ayarlamaları gerçekleştirip containerı sunabileceğimizi düşünüyorum.
 
 ### Son dosyalar
 Dockerfile, run.sh ve build.sh repoda dosya olarak bulunmaktadır.
+
+### Yapılabilecekler
+1. Güvenlik için xhost'u herkese değil de sadece containera açmak
+2. Konfigürasyon klasörünün de projelerin yanı sıra kaydedilmesini sağlamak
+3. Belki otomatik güncelleme?
 
 ### Son sözler
 Eclipse'de kullanıcıların kendi yaptığı konfigürasyonun da kaydedilmesi için kullanıcının ev klasöründeki EmbeddedEclipse klasörünün altına configuration diye bir klasör oluşturup bunu /apps/configuration'a bağlayıp eclipse'in configuration klasörünü sembolik bir şekilde bağlamak (`ln -s` ile, ancak ne kadar doğru olur bilmiyorum, denemek gerekiyor.). 
