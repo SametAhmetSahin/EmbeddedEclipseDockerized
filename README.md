@@ -14,6 +14,11 @@ Yapmam gereken şeyler kabaca şöyleydi:
 3. Projelerin kaydedilmesi ve paylaşılabilmesi amacıyla projeler klasörünü kullanıcının ev klasörüne bağlamak
 4. Eclipse'de Tiva C programlayabilmek için konfigürasyon yapmak
 
+#### Eclipse'i Dockerlamak için gerekenler
+Öncelikle https://www.eclipse.org/downloads/packages/ sayfasında aşağı kaydırarak Eclipse IDE for Embedded C/C++ Developers kısmındaın Linux x86_64 (mimarinize göre aarch64 de indirebilirsiniz) sürümünü indirip çıkarmanız gerekiyor. Çıkardığınızda eclipse adında bir klasör, içinde de çalıştırılabilir eclipse dosyasını ve diğer klasörleri göreceksiniz.
+
+Aynı zamanda paket yöneticinizi kullanarak docker kurmanız gerekiyor.
+
 Eclipse'in kendisini Dockerlamak kolay oldu ancak kurulmuş halini Dockerlamak birçok soruna yol açtı (kullanıcının ev klasöründe oluşturulan .p2 klasörünü bulamaması, JRE'yi tespit edememesi vb.) ve bu sebeple installerdan kurulmuş halini değil de doğrudan kendisini Dockerlamayı seçtim (Eclipse web sitesinde ayrı olarak sunuluyor).
 
 Dockerlayabilmek için ilk yapmam gereken şey bir Dockerfile oluşturmaktı
@@ -67,8 +72,10 @@ Programlayacağımız Tiva C'ye USB ile doğrudan bağlı olmamız gerekiyordu, 
 ### Son ayarlar
 Hocamın bana attığı rehberi takip ederek Dockerfile'daki `apt install` komutuna `openocd` ve `gcc-arm-none-eabi` paketlerini de ekledim. Elimde Tiva C bulunmadığı için test yapamadım ama teorik olarak çalışması gerekiyor, hocamla beraber Eclipse'deki son ayarlamaları gerçekleştirip containerı sunabileceğimizi düşünüyorum.
 
-### Son sözler
+### Son dosyalar
+Dockerfile, run.sh ve build.sh repoda dosya olarak bulunmaktadır.
 
+### Son sözler
 Eclipse'de kullanıcıların kendi yaptığı konfigürasyonun da kaydedilmesi için kullanıcının ev klasöründeki EmbeddedEclipse klasörünün altına configuration diye bir klasör oluşturup bunu /apps/configuration'a bağlayıp eclipse'in configuration klasörünü sembolik bir şekilde bağlamak (`ln -s` ile, ancak ne kadar doğru olur bilmiyorum, denemek gerekiyor.). 
 
 Container boyutu şu an Eclipse IDE'sini içinde bulundurduğu için 1.35 GB, ancak container içinde bulunması sanal makinelere kıyasla hem daha performanslı, hem ana makinenin kaynaklarını kendine ayırmıyor, hem de daha esnek. Aynı zamanda ihtiyaç duyulduğu zaman düzenlenmesi de oldukça basit.
