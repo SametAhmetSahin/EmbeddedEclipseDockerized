@@ -83,6 +83,9 @@ Dockerfile, run.sh ve build.sh repoda dosya olarak bulunmaktadır.
 2. Konfigürasyon klasörünün de projelerin yanı sıra kaydedilmesini sağlamak
 3. Belki otomatik güncelleme?
 
+### Düzenlenebilirlik
+run.sh komutunu istediğiniz gibi düzenleyip farklı hizmetler çalıştırabilirsiniz, yapmak istediğiniz şey tamamen sunduğunuz dosyaya ve gereken kütüphanelere bağlı. Mesela ekran kartını bulamadığına dair sorun çıkarması dışında Godot Engine'i Docker'ın içinde çalıştırabiliyorum.
+
 ### Son sözler
 Eclipse'de kullanıcıların kendi yaptığı konfigürasyonun da kaydedilmesi için kullanıcının ev klasöründeki EmbeddedEclipse klasörünün altına configuration diye bir klasör oluşturup bunu /apps/configuration'a bağlayıp eclipse'in configuration klasörünü sembolik bir şekilde bağlamak (`ln -s` ile, ancak ne kadar doğru olur bilmiyorum, denemek gerekiyor.). 
 
