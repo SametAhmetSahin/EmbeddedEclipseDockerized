@@ -30,18 +30,18 @@ Sonrasında build klasörümdeki Eclipse IDEsini /apps'e kopyalamak için **COPY
 
 Yaptıklarımdan sonra Dockerfile şöyle bir şey olmuştu:
 
-`FROM ubuntu:focal
-WORKDIR /apps
-COPY . /apps
-CMD tail -f /dev/null`
+`FROM ubuntu:focal`  
+`WORKDIR /apps`  
+`COPY . /apps`  
+`CMD tail -f /dev/null`  
 
 ### İlk Build
 Dockerfile'ı yazdıktan sonra deneme amacıyla containerı Dockerfile'ın ve eclipse klasörünün olduğu klasördeyken `sudo DOCKER_BUILDKIT=1 docker build -t embeddedeclipsetest .`ile buildledim. (Kullanıcımı docker grubuna eklemediğim için sudo kullanmam gerekti.)
 Ardından `sudo docker run --rm -it embeddedeclipsetest /bin/bash` ile containerımı çalıştırdım ve container içindeki bash girdisi önüme geldi. Containerım sorunsuz bir şekilde çalışıyordu.
 `cd eclipse` ile eclipse klasörüne girdim ve `./eclipse` ile eclipse'i çalıştırmaya çalıştım ancak program bazı eksik kütüphanelerin olduğunu belirterek açılmayı reddetti.
 Belirttiği kütüphaneleri apt search ile aradım, kurdum, ve her buildde otomatik olarak kurulması için Dockerfile'da son komut olmamak üzere
-`RUN apt update
-RUN apt install -y --no-install-recommends libxcursor1 libxinerama1 libxrandr2 libxi6 libswt-gtk-4-jni`
+`RUN apt update`  
+`RUN apt install -y --no-install-recommends libxcursor1 libxinerama1 libxrandr2 libxi6 libswt-gtk-4-jni`
 komutlarını ekledim.
 
 Bunlara xterm'i de ekledim ki arayüzü başlatma konusunda bana yardımcı olsun ve elimde bir terminalim olsun.
