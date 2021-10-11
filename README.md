@@ -14,6 +14,9 @@ Yapmam gereken şeyler kabaca şöyleydi:
 3. Projelerin kaydedilmesi ve paylaşılabilmesi amacıyla projeler klasörünü kullanıcının ev klasörüne bağlamak
 4. Eclipse'de Tiva C programlayabilmek için konfigürasyon yapmak
 
+### Çabuk Kurulum
+`git clone url` ile bu repoyu klonlayın, ardından klasöre Eclipse'i Dockerlamak için gerekenler adımında linki verilmiş Eclipse IDE'sini indirip eclipse klasörünü repo klasörüne kopyalayın, ardından `chmod +x build.sh run.sh` ile build.sh ve run.sh'ı çalıştırılabilir yapın ve `./build.sh` ile containerı buildleyin ardından `./run.sh` ile buildenen containerı çalıştırın. 
+
 #### Eclipse'i Dockerlamak için gerekenler
 Öncelikle https://www.eclipse.org/downloads/packages/ sayfasında aşağı kaydırarak Eclipse IDE for Embedded C/C++ Developers kısmındaın Linux x86_64 (mimarinize göre aarch64 de indirebilirsiniz) sürümünü indirip çıkarmanız gerekiyor. Çıkardığınızda eclipse adında bir klasör, içinde de çalıştırılabilir eclipse dosyasını ve diğer klasörleri göreceksiniz.
 
@@ -64,7 +67,7 @@ başlatmadaki `xterm` komutunu `/apps/eclipse/eclipse` ile değiştirdiğimde de
 ### Bazı ayarlamalar
 
 #### Proje klasörü
-Artık arayüzümüz vardı ve Eclipse çalışıyordu, ama işimiz henüz bitmemişti. Docker'ın doğası gereği container çalışırken yapılanlar kaydedilmez, bir sonrakinde temiz bir konfigürasyonla başlar. Ancak ana makineden çeşitli yolları containerda çeşitli yollara atayarak bazı şeylerin kaydedilmesini ve farklı oturumlar arasında paylaşılmasını sağlayabiliriz. Bunun için çalıştırma komutuna `-v "/home/$USER/EmbeddedEclipse/projects/:/apps/projects/:rw"` argümanını ekledim, bu sayede kullanıcının ev klasöründe EmbeddedEclipse ve onun da altında projects diye bir klasör oluşturtup bunu containerda /apps/projects yoluna okuma ve yazma izinleri olacak şekilde atanmasını sağladım. Yapılması gereken son şey ise Eclipse'i konfigüre ederken proje klasörü olarak burayı seçmekti.
+Artık arayüzümüz vardı ve Eclipse çalışıyordu, ama işimiz henüz bitmemişti. Biz container'ı doğrudan imajdan çalıştırdığımız için container çalışırken yapılanlar kaydedilmez, bir sonrakinde temiz bir konfigürasyonla başlar. Ancak ana makineden çeşitli yolları containerda çeşitli yollara atayarak bazı şeylerin kaydedilmesini ve farklı oturumlar arasında paylaşılmasını sağlayabiliriz. Bunun için çalıştırma komutuna `-v "/home/$USER/EmbeddedEclipse/projects/:/apps/projects/:rw"` argümanını ekledim, bu sayede kullanıcının ev klasöründe EmbeddedEclipse ve onun da altında projects diye bir klasör oluşturtup bunu containerda /apps/projects yoluna okuma ve yazma izinleri olacak şekilde atanmasını sağladım. Yapılması gereken son şey ise Eclipse'i konfigüre ederken proje klasörü olarak burayı seçmekti.
 
 #### USB Yönlendirme
 Programlayacağımız Tiva C'ye USB ile doğrudan bağlı olmamız gerekiyordu, bundan dolayı da çalıştırma komutuna `--device /dev/bus/usb/002` ekleyerek 2. hubdaki USByi containera aktardım, ana makineye bağlı olarak değişmesi gereken tek şey bu.
