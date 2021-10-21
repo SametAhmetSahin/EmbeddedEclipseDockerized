@@ -6,5 +6,5 @@ xhost +
 mkdir /home/$USER/EmbeddedEclipse/
 mkdir /home/$USER/EmbeddedEclipse/projects/
 sudo chown -hR $USER:$USER /home/$USER/EmbeddedEclipse
-sudo docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --device /dev/bus/usb/002 -v "/home/$USER/EmbeddedEclipse/projects/:/apps/projects/:rw" embeddedeclipsedockerized /app/eclipse/eclipse
+sudo docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --device /dev/bus/usb/002 -v "/home/$USER/EmbeddedEclipse/projects/:/apps/projects/:rw" embeddedeclipsedockerizeduservariant /app/eclipse/eclipse
 #-v "/home/$USER/EmbeddedEclipse/configuration:/apps/eclipse/configuration/:rw"
